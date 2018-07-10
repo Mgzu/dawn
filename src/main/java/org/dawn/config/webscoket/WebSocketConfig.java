@@ -10,6 +10,9 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 @EnableWebSocketMessageBroker
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
+	// 获得一个 SubProtocolWebSocketHandler，即可获取 current WS
+	// new SubProtocolWebSocketHandler(clientInboundChannel, clientOutboundChannel);
+	
 	@Override
 	public void configureMessageBroker(MessageBrokerRegistry config) {
 		config.enableSimpleBroker("/topic");

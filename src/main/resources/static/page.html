@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>Page</title>
+	<link rel="icon" href="favicon.ico" type="image/x-icon" />
+	<style type="text/css">
+		.top-of-table {
+			margin-top: 100px;
+		}
+	</style>
+	<link href="https://cdn.bootcss.com/mdui/0.4.1/css/mdui.min.css" rel="stylesheet">
+	<link href="plugins/mdui/pagination-plugin.css" rel="stylesheet">
+
+</head>
+
+<body class="mdui-theme-primary-indigo mdui-theme-accent-pink">
+	<div class="top-of-table"></div>
+	<div class="pagination-plugin">
+	</div>
+
+	<script src="https://cdn.bootcss.com/jquery/1.12.1/jquery.js"></script>
+	<script src="https://cdn.bootcss.com/mdui/0.4.1/js/mdui.min.js"></script>
+	<script src="plugins/mdui/pagination-plugin.js"></script>
+
+	<script type="text/javascript">
+		var table_data;
+		function init() {
+			var default_num = 1, default_size = 5;
+			$.ajax({
+				url: "/user/page",
+				datType: "JSON",
+				data: {
+					"pageNum": default_num,
+					"pageSize": default_size
+				},
+				success: function (rest) {
+					if (rest.success) {
+						var options = {
+							pageNum: rest.data.pageNum,
+							pageSize: rest.data.pageSize,
+							title: ['#', 'NickName', 'UserName', 'UserSex'],
+							data_title: ['#', 'nickName', 'userName', 'userSex'],
+							data: rest.data.list,
+							countPage: rest.data.pages
+						};
+						mduiPagination.init(options);
+						mdui.mutation();
+					} else {
+						alert(rest.msg);
+					}
+				}
+			});
+		}
+		init();
+
+		function getData(num, size) {
+			var options = {};
+			$.ajax({
+				url: "/user/page",
+				async: false,
+				datType: "JSON",
+				data: {
+					"pageNum": num,
+					"pageSize": size
+				},
+				success: function (rest) {
+					if (rest.success) {
+						options = {
+							pageNum: rest.data.pageNum,
+							pageSize: rest.data.pageSize,
+							data: rest.data.list,
+							countPage: rest.data.pages
+						};
+					} else {
+						alert(rest.msg);
+					}
+				}
+			});
+			return options;
+		}
+	</script>
+
+</body>
+
+</html>

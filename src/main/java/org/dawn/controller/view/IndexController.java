@@ -8,12 +8,12 @@ import org.springframework.web.servlet.ModelAndView;
 public class IndexController {
 
 	@RequestMapping("/")
-	public ModelAndView index() {
+	public ModelAndView defaultView() {
 		return new ModelAndView("index.html");
 	}
 
 	@RequestMapping("/index")
-	public ModelAndView pageToIndex() {
+	public ModelAndView index() {
 		return new ModelAndView("index.html");
 	}
 }

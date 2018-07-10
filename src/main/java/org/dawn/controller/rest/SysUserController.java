@@ -1,12 +1,18 @@
 package org.dawn.controller.rest;
 
+import java.util.List;
+
 import org.dawn.Repository.UserRepository;
 import org.dawn.dto.RestDto;
+import org.dawn.entity.SysUser;
 import org.dawn.mapper.SysUserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 
 @RestController
 @RequestMapping("user")
@@ -43,7 +49,17 @@ public class SysUserController {
 	}
 
 	@RequestMapping("all")
-	public Object name() {
+	public Object all() {
 		return new RestDto(userMapper.selectAll());
+	}
+
+	@RequestMapping("page")
+	public Object page(Integer pageNum, Integer pageSize) {
+		pageNum = pageNum != null ? pageNum : 1;
+		pageSize = pageSize != null ? pageSize : 10;
+		PageHelper.startPage(pageNum, pageSize);
+		List<SysUser> list = userMapper.selectAll();
+		PageInfo<SysUser> pageInfo = new PageInfo<SysUser>(list);
+		return new RestDto(pageInfo);
 	}
 }
