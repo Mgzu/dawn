@@ -11,7 +11,7 @@ Dawn 同时集成了 JPA 和 Mybatis，这样做的好处是当使用简单的�
 |      \       |       框架       | 版本  |
 | :----------: | :--------------: | :---: |
 |   定时任务   |      quartz      |       |
-|  webscoket   | Spring-webscoket |       |
+|  web socket   | spring-websocket |       |
 |     日志     |     logback      |       |
 | 数据可连接池 |      druid       | 1.1.9 |
 |     分页     |    pagehelper    | 1.2.5 |
