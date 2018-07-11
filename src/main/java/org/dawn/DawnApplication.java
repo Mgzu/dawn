@@ -1,7 +1,7 @@
 package org.dawn;
 
 import org.dawn.utils.SpringBeanUtil;
-import org.dawn.utils.WebScoketUtil;
+import org.dawn.utils.WebSocketUtil;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -15,6 +15,6 @@ public class DawnApplication {
 		ApplicationContext app = SpringApplication.run(DawnApplication.class, args);
 		SpringBeanUtil.setApplicationContext(app);
 		// 更改 WebSocketMessageBroker 聚合信息记录时间，30 minutes -> 1 minutes
-		WebScoketUtil.setWebSocketMessageBrokerLoggingPeriod(60 * 1000);
+		WebSocketUtil.setWebSocketMessageBrokerLoggingPeriod(60 * 1000);
 	}
 }

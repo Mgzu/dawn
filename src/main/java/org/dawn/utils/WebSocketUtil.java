@@ -7,9 +7,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.springframework.web.socket.config.WebSocketMessageBrokerStats;
 import org.springframework.web.socket.messaging.SubProtocolWebSocketHandler;
 
-public class WebScoketUtil {
+public class WebSocketUtil {
 
-	public static int getCurrentWsSubjectNumber()
+	public static int getCurrentWebSocketSubjects()
 			throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException,
 			InstantiationException, InvocationTargetException, NoSuchMethodException {
 		// get WebSocketMessageBrokerStats
