@@ -2,12 +2,12 @@ package org.dawn.dto;
 
 public class Greeting {
 	private String content;
-	private String userNum;
+	private Object userNum;
 
 	public Greeting() {
 	}
 
-	public Greeting(String content, String userNum) {
+	public Greeting(String content, Object userNum) {
 		super();
 		this.content = content;
 		this.userNum = userNum;
@@ -21,11 +21,11 @@ public class Greeting {
 		this.content = content;
 	}
 
-	public String getUserNum() {
+	public Object getUserNum() {
 		return userNum;
 	}
 
-	public void setUserNum(String userNum) {
+	public void setUserNum(Object userNum) {
 		this.userNum = userNum;
 	}
 

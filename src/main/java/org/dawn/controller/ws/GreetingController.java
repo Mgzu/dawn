@@ -1,7 +1,10 @@
 package org.dawn.controller.ws;
 
+import java.lang.reflect.InvocationTargetException;
+
 import org.dawn.dto.Greeting;
 import org.dawn.dto.HelloMessage;
+import org.dawn.utils.WebScoketUtil;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
@@ -12,8 +15,13 @@ public class GreetingController {
 	@MessageMapping("/hello")
 	@SendTo("/topic/greetings")
 	public Greeting greeting(HelloMessage message) throws Exception {
-		// Thread.sleep(1000); // 模拟延迟
-		// 暂未找到获取当前 WS 所有用户的方法
-		return new Greeting("Hello, " + HtmlUtils.htmlEscape(message.getName()) + "!", "1");
+		int number = 0;
+		try {
+			number = WebScoketUtil.getCurrentWsSubjectNumber();
+		} catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException
+				| InstantiationException | InvocationTargetException | NoSuchMethodException e) {
+			e.printStackTrace();
+		}
+		return new Greeting("Hello, " + HtmlUtils.htmlEscape(message.getName()) + "!", number);
 	}
 }
