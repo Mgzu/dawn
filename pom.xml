@@ -71,11 +71,12 @@
 			<version>1.3.2</version>
 		</dependency>
 
-		<dependency>
+		<!-- devtools 会影响日志推送功能 -->
+		<!-- <dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 			<scope>runtime</scope>
-		</dependency>
+		</dependency> -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>

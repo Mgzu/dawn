@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xml>
-<configuration  scan="true" scanPeriod="60 seconds" debug="false">
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
     <contextName>log</contextName>
     <property name="log.path" value="log" />
     <property name="log.name" value="dawn" />
@@ -9,6 +9,7 @@
         <encoder>
             <pattern>%d{HH:mm:ss.SSS} %contextName [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
+        <filter class="org.dawn.log.ProcessLogFilter"></filter>
     </appender>
 
     <!--输出到文件-->
