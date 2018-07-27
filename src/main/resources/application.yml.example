@@ -2,22 +2,22 @@ server:
   port: 1121
   tomcat:
     uri-encoding: utf-8
-    
+   
 spring:
   jpa:
     database: MYSQL
-    database-platform: org.hibernate.dialect.MySQL5Dialect 
+    database-platform: org.hibernate.dialect.MySQL5Dialect
     open-in-view: false
     show-sql: true
   
   datasource:
-      # 数据库访问配置, 使用druid数据源 
+    # 数据库访问配置, 使用 druid 数据源 
     type: com.alibaba.druid.pool.DruidDataSource
     driverClassName: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/boot?useUnicode=true&characterEncoding=utf8&useSSL=false
-    username: boot
-    password: boot123456
-    druid:   
+    username: root
+    password: 123456
+    druid:
       # 连接池配置
       initial-size: 5
       min-idle: 5
@@ -32,17 +32,17 @@ spring:
       test-while-idle: true
       test-on-borrow: false
       test-on-return: false
-      # 打开PSCache，并且指定每个连接上PSCache的大小
+      # 打开 PSCache，并且指定每个连接上 PSCache 的大小
       pool-prepared-statements: true
       max-open-prepared-statements: 20
       max-pool-prepared-statement-per-connection-size: 20
-      # 配置监控统计拦截的filters, 去掉后监控界面sql无法统计, 'wall'用于防火墙
+      # 配置监控统计拦截的 filters, 去掉后监控界面sql无法统计, 'wall' 用于防火墙
       filters: stat
-      # Spring监控AOP切入点，如x.y.z.service.*,配置多个英文逗号分隔
+      # Spring 监控 AOP 切入点，如x.y.z.service.*,配置多个英文逗号分隔
       aop-patterns: org.dawn.servie.*
       
     
-      # WebStatFilter配置
+      # WebStatFilter 配置
       web-stat-filter:
         enabled: true
         # 添加过滤规则
@@ -50,10 +50,10 @@ spring:
         # 忽略过滤的格式
         exclusions: '*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*'
       
-      # StatViewServlet配置 
+      # StatViewServlet 配置 
       stat-view-servlet:
         enabled: true
-        # 访问路径为/druid时，跳转到StatViewServlet
+        # 访问路径为 /druid 时，跳转到 StatViewServlet
         url-pattern: /druid/*
         # 是否能够重置数据
         reset-enable: false
@@ -65,7 +65,7 @@ spring:
         # IP黑名单（共同存在时，deny优先于allow）
         # deny: 192.168.1.218
       
-      # 配置StatFilter
+      # 配置 StatFilter
       filter: 
         stat: 
           log-slow-sql: true 
@@ -74,9 +74,9 @@ spring:
     proxy-target-class: true
 
 mybatis:
-  # type-aliases扫描路径
+  # type-aliases 扫描路径
   type-aliases-package: org.dawn.entity
-  # mapper xml实现扫描路径
+  # mapper xml 实现扫描路径
   mapper-locations: classpath:mappers/*.xml
   property:
     order: BEFORE
@@ -92,4 +92,11 @@ pagehelper:
   helperDialect: mysql
   reasonable: true
   supportMethodsArguments: true
-  params: count=countSql 
+  params: count=countSql
+
+# 打印sql
+# websocket log config
+logging:
+  level:
+    org.dawn.mapper: DEBUG
+    com.example.websocket: DEBUG

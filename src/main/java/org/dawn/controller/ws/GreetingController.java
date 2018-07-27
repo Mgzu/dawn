@@ -10,18 +10,24 @@ import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.util.HtmlUtils;
 
+/**
+ * Greeting Controller
+ *
+ * @author mgzu
+ * @date 2018/7/11
+ */
 @Controller
 public class GreetingController {
-	@MessageMapping("/hello")
-	@SendTo("/topic/greetings")
-	public Greeting greeting(HelloMessage message) throws Exception {
-		int number = 0;
-		try {
-			number = WebSocketUtil.getCurrentWebSocketSubjects();
-		} catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException
-				| InstantiationException | InvocationTargetException | NoSuchMethodException e) {
-			e.printStackTrace();
-		}
-		return new Greeting("Hello, " + HtmlUtils.htmlEscape(message.getName()) + "!", number);
-	}
+    @MessageMapping("/hello")
+    @SendTo("/topic/greetings")
+    public Greeting greeting(HelloMessage message) throws Exception {
+        int number = 0;
+        try {
+            number = WebSocketUtil.getCurrentWebSocketSubjects();
+        } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException
+                | InstantiationException | InvocationTargetException | NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+        return new Greeting("Hello, " + HtmlUtils.htmlEscape(message.getName()) + "!", number);
+    }
 }

@@ -106,7 +106,7 @@
       _insert_foot_page +=
         '<div class="mdui-chip"><span class="mdui-chip-title pagination-disabled">上一页</span></div><div class="mdui-chip pagination-currentPage"><span class="mdui-chip-title">1</span></div><div class="mdui-chip"><span class="mdui-chip-title pagination-disabled">下一页</span></div>';
     }
-    // TODO 拼接分页
+
     var _insert =
       '<div class="mdui-container"><div class="mdui-table-fluid"><table class="mdui-table"><thead class="pagination-table-thead"><tr>' +
       _insert_thead +
