@@ -1,0 +1,27 @@
+.terminal-container {
+	height: 450px;
+	width: 1000px;
+	overflow-y: scroll;
+	font-size: 17px;
+	background: #333;
+	color: #aaa;
+	padding: 10px;
+	margin: 0 auto;
+	border-radius: 5px;
+	/* old Firefox */
+    -moz-border-radius: 5px;
+}
+
+.terminal-container .terminal-heading {
+	padding-bottom: 5px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.terminal-container .terminal-body {
+	
+}
+
+.terminal-container .terminal-footer {
+	
+}

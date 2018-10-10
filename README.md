@@ -39,4 +39,4 @@ banner 由 http://www.network-science.de/ascii 生成。
 
 ## 注意
 
-* spring-boot-devtools 与 pulllog 功能存在冲突，使用功能时，需要注释或去掉 spring-boot-devtools。
+* spring-boot-devtools 与 pulllog 功能存在冲突，使用功能时，需要注释或去掉 spring-boot-devtools。  

@@ -5,48 +5,96 @@
 	<meta charset="utf-8">
 	<title>WebSocket Logger</title>
 	<link rel="icon" href="favicon.ico" type="image/x-icon" />
+	<script src="https://cdn.bootcss.com/less.js/3.0.4/less.js"></script>
+	<link rel="stylesheet/less" type="text/css" href="dwan.less">
+	<link href="css/terminal.css" rel="stylesheet">
+	<link href="css/pulllog.css" rel="stylesheet">
 	<script src="https://cdn.bootcss.com/jquery/2.1.4/jquery.js"></script>
+	<script src="https://cdn.bootcss.com/jquery.nicescroll/3.7.6/jquery.nicescroll.js"></script>
 	<script src="https://cdn.bootcss.com/sockjs-client/1.1.4/sockjs.min.js"></script>
 	<script src="https://cdn.bootcss.com/stomp.js/2.3.3/stomp.min.js"></script>
+	<script src="js/terminal.js"></script>
+	<script src="js/pulllog.js"></script>
 </head>
 
 <body>
-	<button onclick="openSocket()">开启日志</button>
-	<button onclick="closeSocket()">关闭日志</button>
-	<div id="log-container" style="height: 450px; overflow-y: scroll; background: #333; color: #aaa; padding: 10px;">
-		<div></div>
+	<div>
+		<div class="button-group">
+			<button class="open-button" onclick="openSocket()">开启日志</button>
+			<button class="close-button" onclick="closeSocket()">关闭日志</button>
+		</div>
+		<div class="log-level-group">
+			<div class="log-badge log-button log-info">
+				info <span class="log-badge-count log-info-badge-count">0</span>
+			</div>
+			<div class="log-badge log-button log-debug">
+				debug <span class="log-badge-count log-debug-badge-count">0</span>
+			</div>
+			<div class="log-badge log-button log-warn">
+				warn <span class="log-badge-count log-warn-badge-count">0</span>
+			</div>
+			<div class="log-badge log-button log-error">
+				error <span class="log-badge-count log-error-badge-count">0</span>
+			</div>
+			<div class="log-badge log-button log-other">
+				other <span class="log-badge-count log-other-badge-count">0</span>
+			</div>
+		</div>
+	</div>
+	<div id="log-container" class="terminal-container">
+		<div class="terminal-heading">dawn terminal by github@mgzu</div>
+		<div class="terminal-body"></div>
+		<div class="terminal-footer"></div>
 	</div>
 </body>
 <script>
 	var stompClient = null;
 	$(document).ready(function () {
 		openSocket();
+		$("#log-container").niceScroll({ cursorcolor: "#ccc" });
 	});
+
 	function openSocket() {
 		if (stompClient == null) {
 			var socket = new SockJS('/ws');
 			stompClient = Stomp.over(socket);
+			// close stomp.js debug
+			// stompClient.debug = null;
 			stompClient.connect({}, function (frame) {
 				console.log('Connected: ' + frame);
 				stompClient.subscribe('/topic/pullLogger', function (event) {
 					var content = JSON.parse(event.body);
-					$("#log-container div")
-						.append(
-							content.timestamp + " " + content.level
-							+ " --- [" + content.threadName
-							+ "] " + content.className + "   :"
-							+ content.body).append("<br/>");
-					$("#log-container").scrollTop(
-						$("#log-container div").height()
-						- $("#log-container").height());
+					$("#log-container .terminal-body").append(content.timestamp + " " + content.level + " --- [" + content.threadName + "] "
+						+ content.className + " :" + content.body).append("<br/>");
+					$("#log-container .terminal-body").scrollTop($("#log-container .terminal-body").height() - $("#log-container .terminal-body").height());
 				});
 			});
 		}
 	}
+
 	function closeSocket() {
 		if (stompClient != null) {
 			stompClient.disconnect();
 			stompClient = null;
+		}
+	}
+
+	function logLevelStatistics(level) {
+		switch (level) {
+			case 'ALL':
+				return ALL;
+			case 'TRACE':
+				return TRACE;
+			case 'DEBUG':
+				return DEBUG;
+			case 'INFO':
+				return INFO;
+			case 'WARN':
+				return WARN;
+			case 'ERROR':
+				return ERROR;
+			default:
+				throw new TypeError("Level " + level + " is undefined.");
 		}
 	}
 </script>
